@@ -8,6 +8,8 @@ valid_range = False
 secret_num: int = 0
 range_pattern = r'^[0-9]+-[0-9]+$'
 
+count = 0
+
 while valid_range == False:
     in_user = input("> Insira um interválo de números. ex: 1-10, 1-3.. \n> ")
     if not re.match(range_pattern, in_user):
