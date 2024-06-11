@@ -1,5 +1,6 @@
 import random
 import re
+import os
 
 range_user = []
 num = 0
@@ -8,7 +9,7 @@ valid_range = False
 secret_num: int = 0
 range_pattern = r'^[0-9]+-[0-9]+$'
 
-count = 0
+trys = 5
 
 while valid_range == False:
     in_user = input("> Insira um interválo de números. ex: 1-10, 1-3.. \n> ")
@@ -24,21 +25,25 @@ while valid_range == False:
             valid_range = True  
 
 
-while correct_guess == False:
+while correct_guess == False and trys > 0:
     choosed = input(f"> Advinhe o número entre {range_user[0]}-{range_user[1]}\n> ")
     if not re.match(r'^[0-9]+$', choosed):
         print("Insira apenas um número válido")
     elif not num in range(int(range_user[0]), int(range_user[1])):
         print("Insira apenas números dentro do intervalo escolhido")
     else:
-        print(num)
         if int(choosed) == num:
             print("Parabens, você acertou o número!!")
             correct_guess = True
         else:
             if int(choosed) > num:
+                trys -= 1
+                print(f"Restam {trys} tentativas")
                 print("Ops, o seu número escolhido é mais alto, Tente novamente")
             else:
+                trys -= 1
+                print(f"Restam {trys} tentativas")
                 print("Ops, o seu número escolhido é mais baixo, Tente novamente")
-            
+    if trys == 0:
+        print(f"Suas tentativas acabaram, o número era {num}")
     
